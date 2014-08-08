@@ -1,5 +1,8 @@
 ## Interface: 50400
 ## DefaultState: disabled
+
+## Notes: Records the contents of in-game books so you can read them later.
+
 ## SavedVariables: BibliophileDB
 
 Collect.lua
