@@ -72,7 +72,7 @@ function Collect:ITEM_TEXT_READY()
 		-- Coordinate storage format borrowed from LibMapData-1.0 by Kagaro
 		local zone = GetCurrentMapAreaID()
 		local level = GetCurrentMapDungeonLevel() or 0
-		local x, y = GetPlayerMapPosition()
+		local x, y = GetPlayerMapPosition("player")
 		t.locations = t.locations or {}
 		t.locations[zone] = floor(x * 10000 + 0.5) * 1000000 + floor(y * 10000 + 0.5) * 100 + level
 		print("Saved location", t.locations[zone], "in", zone)
