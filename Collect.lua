@@ -30,37 +30,53 @@ local Collect = CreateFrame("Frame")
 Collect:SetScript("OnEvent", function(self, event, ...) return self[event](self, ...) end)
 Collect:RegisterEvent("PLAYER_LOGIN")
 
-function Collect:PLAYER_LOGIN()	
+function Collect:PLAYER_LOGIN()
 	local lang = GetLocale()
 	self.db = BibliophileDB[lang] or {}
 	BibliophileDB[lang] = self.db
-	
-	self:RegisterEvent("ITEM_TEXT_BEGIN")
-	self:RegisterEvent("ITEM_TEXT_CLOSED")
+
 	self:RegisterEvent("ITEM_TEXT_READY")
-	self:RegisterEvent("ITEM_TEXT_TRANSLATION")
 end
 
-function Collect:ITEM_TEXT_BEGIN(...)
-	print("ITEM_TEXT_BEGIN", ...)
-	local name = ItemTextGetItem()
-	local creator = ItemTextGetCreator()
-	local material = ItemTextGetMaterial()
+function Collect:ITEM_TEXT_READY()
+	print("ITEM_TEXT_READY")
+	if ItemTextGetCreator() then
+		-- Ignore saved mail and other player-created items
+		return
+	end
+
+
+	local title = ItemTextGetItem()
 	local page = ItemTextGetPage()
-	local text = ItemTextGetText()
-	local isLastPage = not ItemTextHasNextPage()
-	local zone = GetCurrentMapAreaID()
-end
+	print("Scanning page", page, "of book", title)
 
-function Collect:ITEM_TEXT_READY(...)
-	print("ITEM_TEXT_READY", ...)
-end
+	local t = self.db[title] or {}
+	t.material = ItemTextGetMaterial()
 
-function Collect:ITEM_TEXT_TRANSLATION(...)
-	print("ITEM_TEXT_TRANSLATION", ...)
-end
+	t.pages = t.pages or {}
+	t.pages[page] = ItemTextGetText()
 
-function Collect:ITEM_TEXT_CLOSED(...)
-	print("ITEM_TEXT_CLOSED", ...)
-end
+	if not ItemTextHasNextPage() then
+		print("Last page")
+		t.complete = true
+		for i = 1, page do
+			if not t.pages[i] then
+				print("Missing text for page", i)
+				t.complete = nil
+				break
+			end
+		end
+	end
 
+	if GetItemCount(title) == 0 then
+		-- Coordinate storage format borrowed from LibMapData-1.0 by Kagaro
+		local zone = GetCurrentMapAreaID()
+		local level = GetCurrentMapDungeonLevel() or 0
+		local x, y = GetPlayerMapPosition()
+		t.locations = t.locations or {}
+		t.locations[zone] = floor(x * 10000 + 0.5) * 1000000 + floor(y * 10000 + 0.5) * 100 + level
+		print("Saved location", t.locations[zone], "in", zone)
+	end
+
+	self.db[title] = t
+end
