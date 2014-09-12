@@ -14,7 +14,7 @@ local ADDON, private = ...
 ItemTextPageText:EnableMouseWheel(true)
 ItemTextPageText:SetScript("OnMouseWheel", function(self, delta)
 	local page = (delta < 0) and ItemTextNextPageButton or (delta > 0) and ItemTextPrevPageButton
-	local scroll = (delta < 0) and ItemTextScrollFrameScrollBarScrollDownButton or (delta > 0) and ItemTextScrollFrameScrollBarScrollDownButton
+	local scroll = (delta < 0) and ItemTextScrollFrameScrollBarScrollDownButton or (delta > 0) and ItemTextScrollFrameScrollBarScrollUpButton
 
 	if scroll:IsVisible() and scroll:IsEnabled() then
 		scroll:Click()
@@ -35,7 +35,7 @@ function Display:Setup()
 	self:SetPoint("TOPLEFT")
 	self:EnableMouse(true)
 
-	tx = self:CreateTexture(nil, "OVERLAY", nil, -1)
+	tx = self:CreateTexture(nil, "OVERLAY")
 	tx:SetTexture("Interface\\QuestFrame\\UI-QuestLog-BookIcon")
 	tx:SetSize(64, 64)
 	tx:SetPoint("TOPLEFT", -9, 9)
@@ -53,7 +53,7 @@ function Display:Setup()
 	tx:SetPoint("TOPLEFT", 336, -62)
 	self.QuestBG = tx
 
-	fs = self:CreateFontString("$parentTitleText", "OVERLAY", "GameFontNormal", 100)
+	fs = self:CreateFontString("$parentTitleText", "OVERLAY", "GameFontNormal")
 	fs:SetText(GetAddOnMetadata(ADDON, "Title"))
 	fs:SetSize(300, 14)
 	fs:SetPoint("TOP", 0, -3)
@@ -63,15 +63,15 @@ function Display:Setup()
 	--	Inner border
 	--
 
-	tx = self:CreateTexture(nil, "OVERLAY", "UI-Frame-InnerTopLeft", 100)
+	tx = self:CreateTexture(nil, "OVERLAY", "UI-Frame-InnerTopLeft")
 	tx:SetPoint("TOPLEFT", self, "TOPRIGHT", -334, -60)
 	self.InsetBorderTopLeft = tx
 
-	tx = self:CreateTexture(nil, "OVERLAY", "UI-Frame-InnerBotLeftCorner", 100)
+	tx = self:CreateTexture(nil, "OVERLAY", "UI-Frame-InnerBotLeftCorner")
 	tx:SetPoint("BOTTOMLEFT", self, "BOTTOMRIGHT", -334, 25)
 	self.InsetBorderBotLeft = tx
 
-	tx = self:CreateTexture(nil, "OVERLAY", "!UI-Frame-InnerLeftTile", 100)
+	tx = self:CreateTexture(nil, "OVERLAY", "!UI-Frame-InnerLeftTile")
 	tx:SetPoint("TOPLEFT", self.InsetBorderTopLeft, "BOTTOMLEFT")
 	tx:SetPoint("BOTTOMLEFT", self.InsetBorderBotLeft, "TOPLEFT")
 	self.InsetBorderLeft = tx
