@@ -1,7 +1,12 @@
-## Interface: 50400
+## Interface: 60000
 ## DefaultState: disabled
 
 ## Notes: Records the contents of in-game books so you can read them later.
+
+## Author: Phanx
+## X-Email: addons@phanx.net
+## X-Copyright: Copyright (c) 2013-2014 Phanx. All rights reserved.
+## X-Webiste: https://github.com/Phanx/Bibliophile
 
 ## SavedVariables: BibliophileDB
 
