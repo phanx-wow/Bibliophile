@@ -1,7 +1,7 @@
 --[[--------------------------------------------------------------------
 	Bibliophile
 	Stores the contents of in-game books so you can read them later.
-	Copyright (c) 2013-2014 Phanx <addons@phanx.net>. All rights reserved.
+	Copyright (c) 2013-2015 Phanx <addons@phanx.net>. All rights reserved.
 	http://www.wowinterface.com/downloads/info-Bibliophile.html
 	http://www.curse.com/addons/wow/bibliophile
 	https://github.com/Phanx/Bibliophile
