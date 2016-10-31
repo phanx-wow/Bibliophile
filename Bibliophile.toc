@@ -1,4 +1,4 @@
-## Interface: 70000
+## Interface: 70100
 
 ## Notes: Records the contents of in-game books so you can read them later.
 
