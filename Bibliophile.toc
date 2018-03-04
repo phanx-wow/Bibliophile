@@ -1,10 +1,10 @@
-## Interface: 70100
+## Interface: 70300
 
 ## Notes: Records the contents of in-game books so you can read them later.
 
 ## Author: Phanx
 ## X-Email: addons@phanx.net
-## X-Copyright: Copyright (c) 2013-2016 Phanx. All rights reserved.
+## X-License: All rights reserved
 ## X-Webiste: https://github.com/Phanx/Bibliophile
 
 ## SavedVariables: BibliophileDB
